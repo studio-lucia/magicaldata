@@ -31,4 +31,4 @@ Begins at the beginning of the file, and lasts for 256 bytes. Contains 14 charac
 
 Begins at 0x0100, and continues for the remainder of the file. Contains an uppercase and lowercase English font, assorted punctuation, and a set of hiragana.
 
-Like the filename implies, the 8x8 font is based directly on ASCII. It skips the unprintable characters and begins with what in ASCII would be 0x20 (space). Up through 0x7E, it follows Japanese editions of ASCII exactly, complete with \ rendered as ¥. (Backslash is contained at 0x7F, normally the DEL control character.)
+Like the filename implies, the 8x8 font is based directly on ASCII. The 16 8x16 characters take up the space normally used by ASCII's unprintable control codes, leaving the 8x8 font to begin with the first printable character. Up through 0x7E, it follows Japanese editions of ASCII exactly, complete with \ rendered as ¥. (Backslash is contained at 0x7F, normally the DEL control character.) From 0x80 on, it appears to follow a custom layout.
