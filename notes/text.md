@@ -8,9 +8,9 @@ The game's font is located in [../files/KANJI.FNT](KANJI.FNT). Silver Star Story
 
 This is the first dialogue box in the game.
 
-今年は ジャムを作って
-それから パイに ケーキに
-アイスクリームってところね❤
+> 今年は ジャムを作って<br>
+> それから パイに ケーキに<br>
+> アイスクリームってところね❤<br>
 
 Line 1:
 
