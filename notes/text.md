@@ -4,9 +4,11 @@ Text is located in the numbered S*.FLD files; I'm not yet sure if they contain a
 
 The game's font is located in [../files/KANJI.FNT](KANJI.FNT). Text uses Shift JIS, which is a variable-width encoding; all text I've observed so far is from the two-byte range, except for control codes such as newlines. All of the characters I've observed so far follow their Shift JIS codepoints except "❤︎", represented at 9E42. In Shift JIS, this would be "曖".
 
+I haven't yet determined what the game's own control codes are, but the bytes 0x0800 are used to divide the first text box from the subsequent text box.
+
 ## Sample
 
-This is the first dialogue box in the game.
+This is the first dialogue box in the game. Its text is contained in file S01.FLD between 0x1754 and 0x17A3.
 
 ![Lena is very excited about cake and ice cream!](../images/first_text_box.png)
 
