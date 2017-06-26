@@ -8,4 +8,4 @@ The font has a full set of hiragana and katakana and a large number of kanji, so
 
 ## TODO
 
-The font begins at 0x0C48 into the file. I haven't yet determined what the data prior to this is.
+The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data outside the font is.
