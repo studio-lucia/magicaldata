@@ -12,8 +12,8 @@ The header begins with two bytes indicating the starting position of the tile co
 
 The Shift JIS codepoints are sequential, but not complete. This isn't a comprehensive Shift JIS font, and codepoints are skipped in various places.
 
+The first codepoint in the header, unlike the rest, represents a codepoint within the ASCII region - e.g., one that's a single byte. The first 16x16 tile is blank; ASCII codepoint 0x20 is space. This codepoint is specified as "2020". However, the game seems to hardcode reading two-byte codepoints; it won't interpret single-byte codepoints, and trying to double up like with "2020" doesn't work; if a codepoint is specified as "4141" in the map, then the text parser will try to read "4141" as a single character even though this would be two characters in Shift JIS. No luck trying to get the game to read ASCII that way.
+
 ## TODO
 
 The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data which follows the font is.
-
-The first codepoint in the header, unlike the rest, represents a codepoint within the ASCII region - e.g., one that's a single byte. The first 16x16 tile is blank; ASCII codepoint 0x20 is space. To determine: are 1-byte codepoints represented by doubling up their value? (e.g., does "2020" just mean "20"?) Or are 1-byte codepoints represented by an 8x16 tile, in this case repeated twice?
