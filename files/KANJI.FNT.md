@@ -6,6 +6,12 @@ Contains the game's dialogue font. Characters are stored as 16x16 tiles in 1bpp;
 
 The font has a full set of hiragana and katakana and a large number of kanji, some special characters like a star and a heart, and a full uppercase English character set.
 
+### Header
+
+The header begins with two bytes indicating the starting position of the tile content, e.g. 0C48. The rest of the header contains a full list of all the Shift JIS codepoints contained in the kanji font. Their indices are used as a lookup table; e.g., index 1 (8141) is tile 1 (、).
+
+The Shift JIS codepoints are sequential, but not complete. This isn't a comprehensive Shift JIS font, and codepoints are skipped in various places.
+
 ## TODO
 
-The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data outside the font is.
+The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data which follows the font is.
