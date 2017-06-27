@@ -15,3 +15,5 @@ The Shift JIS codepoints are sequential, but not complete. This isn't a comprehe
 ## TODO
 
 The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data which follows the font is.
+
+The first codepoint in the header, unlike the rest, represents a codepoint within the ASCII region - e.g., one that's a single byte. The first 16x16 tile is blank; ASCII codepoint 0x20 is space. To determine: are 1-byte codepoints represented by doubling up their value? (e.g., does "2020" just mean "20"?) Or are 1-byte codepoints represented by an 8x16 tile, in this case repeated twice?
