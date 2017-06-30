@@ -25,6 +25,10 @@ Four tiles, near the beginning of the file, look to be unused. While the tiles t
 
 The first, second, and fourth characters don't exist in the Shift JIS character set.
 
+### Mismatched codepoints
+
+The character "‥", which follows "〜" (nyoro), is mapped to 8163. 8163 is the codepoint for the three-dot leader, used as an ellipsis; 8164 would be the codepoint for the two-dot leader. It's possible it was mapped to 8163 because it's used as an ellipsis, even though it only contains two dots.
+
 ## TODO
 
 The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data which follows the font is.
