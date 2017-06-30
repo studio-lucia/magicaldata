@@ -14,6 +14,17 @@ The Shift JIS codepoints are sequential, but not complete. This isn't a comprehe
 
 The first codepoint in the header, unlike the rest, represents a codepoint within the ASCII region - e.g., one that's a single byte. The first 16x16 tile is blank; ASCII codepoint 0x20 is space. This codepoint is specified as "2020". However, the game seems to hardcode reading two-byte codepoints; it won't interpret single-byte codepoints, and trying to double up like with "2020" doesn't work; if a codepoint is specified as "4141" in the map, then the text parser will try to read "4141" as a single character even though this would be two characters in Shift JIS. No luck trying to get the game to read ASCII that way.
 
+### Unused codepoints
+
+Four tiles, near the beginning of the file, look to be unused. While the tiles themselves are finished, the header maps them all to 81AC - "〓", or the [geta kigo](https://en.wikipedia.org/wiki/List_of_Japanese_typographic_symbols), a proofreader's mark which indicates that a glyph is unavailable. The four unmapped glyphs are:
+
+* ‼
+* ⁉
+* t
+* ➤
+
+The first, second, and fourth characters don't exist in the Shift JIS character set.
+
 ## TODO
 
 The font begins at 0x0C48 into the file and runs until 0xD0A8. I haven't yet determined what the data which follows the font is.
