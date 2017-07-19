@@ -14,14 +14,18 @@ Within the header, each set of 8 bytes contains a 4-byte pointer to the start of
 
 For example, S00.FLD, the smallest file, contains the following four pointers:
 
-00000800 - Pointer into ??? (map?) data
+00000800 - Pointer into text (and map?) data
 000018A4 - Length of preceding chunk
-00002800 - Pointer into text data
+00002800 - Pointer into other map/text data
 000013DD - Length of preceding chunk (e.g., 0x2800 + 0x13DD == 0x3BDD, which is where the padding at the end of the file begins)
 
 ## Text section
 
-Text content begins at roughly 0x31FE into S00.FLD and continues until the end of the text chunk. That leaves text content of roughly 2527 bytes or so, and preceding content of roughly 2558 bytes. What's in the preceding content? Why is it so big?
+Examining S00.FLD, which has two sections, it looks like there's text within both chunks. Based on the format of Eternal Blue I expected them to contain discrete types of data, but I guess not.
+
+Text content within the first chunk begins at 0x1754 and continues until roughly the end of the chunk.
+
+Text content within the second text chunk begins at roughly 0x31FE and continues until the end of the text chunk. That leaves text content of roughly 2527 bytes or so, and preceding content of roughly 2558 bytes. Some of this data is probably map content - but what?
 
 ## Padding
 
