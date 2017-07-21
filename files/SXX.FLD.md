@@ -23,7 +23,9 @@ For example, S00.FLD, the smallest file, contains the following four pointers:
 
 Examining S00.FLD, which has two sections, it looks like there's text within both chunks. Based on the format of Eternal Blue I expected them to contain discrete types of data, but I guess not.
 
-Text content within the first chunk begins at 0x1754 and continues until roughly the end of the chunk.
+Text content within the first chunk begins at 0x1754 and continues until roughly the end of the chunk. That leaves text content of about 2384 bytes, and preceding content of about 3588 bytes. Presumably most of it is map content.
+
+The first string within the first chunk begins at 0x1754 and continues until 0x17A3; it's 0x4F bytes long. The next string begins at 0x17A5 and runs until 0x17DB. The third string begins at 0x17DD and runs until 0x1821.
 
 Text content within the second text chunk begins at roughly 0x31FE and continues until the end of the text chunk. That leaves text content of roughly 2527 bytes or so, and preceding content of roughly 2558 bytes. Some of this data is probably map content - but what?
 
