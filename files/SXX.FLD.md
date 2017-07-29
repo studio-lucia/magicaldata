@@ -19,15 +19,31 @@ For example, S00.FLD, the smallest file, contains the following four pointers:
 00002800 - Pointer into other map/text data
 000013DD - Length of preceding chunk (e.g., 0x2800 + 0x13DD == 0x3BDD, which is where the padding at the end of the file begins)
 
-## Text section
+## Headers
 
-Examining S00.FLD, which has two sections, it looks like there's text within both chunks. Based on the format of Eternal Blue I expected them to contain discrete types of data, but I guess not.
+The header format is, roughly:
 
-Text content within the first chunk begins at 0x1754 and continues until roughly the end of the chunk. That leaves text content of about 2384 bytes, and preceding content of about 3588 bytes. Presumably most of it is map content.
+| Index | Description | Type |
+|-------|-------------|--------|
+| 0x00 - 0x03 | Unknown | Unsigned 32-bit big-endian integer |
+| 0x04 - 0x07 | Offset of dialogue header | Unsigned 32-bit big-endian integer |
+| 0x08 - ??? | Unknown - runs until the beginning of the next section |  |
+| Offset pointed to by 04-07 | Number of dialogue entries | Unsigned 32-bit big-endian integer |
+| Follows the previous offset | Offset to the table of dialogue offsets | Unsigned 32-bit big-endian integer |
 
-The first string within the first chunk begins at 0x1754 and continues until 0x17A3; it's 0x4F bytes long. The next string begins at 0x17A5 and runs until 0x17DB. The third string begins at 0x17DD and runs until 0x1821.
+The table of dialogue offsets is simply a set of pointers to specific offsets within the file. Each of them points to the beginning of a string, and each string continues until the 0x0800 termination control code.
 
-Text content within the second text chunk begins at roughly 0x31FE and continues until the end of the text chunk. That leaves text content of roughly 2527 bytes or so, and preceding content of roughly 2558 bytes. Some of this data is probably map content - but what?
+For example, S00's header looks like this:
+
+* 0x00 - 0x03: 001D0000 - unknown value
+* 0x04 - 0x07: 00000038 - offset of dialogue header
+* 0x08 - 0x37: various unknown data
+* 0x38 - 0x3B: 00000028 (40 in base 10) - number of dialogue strings
+* 0x3C - 0x3F: 0000026C - offset to the table of dialogue offsets
+
+* 0x26C - 0x30c: Set of 40 32-bit unsigned integers containing string offsets
+
+The first offset, located at 0x26c, is 00000F54, the address of the first string in the file.
 
 ## Padding
 
