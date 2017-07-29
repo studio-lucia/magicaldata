@@ -33,7 +33,7 @@ The header format is, roughly:
 
 The table of dialogue offsets is simply a set of pointers to specific offsets within the file. Each of them points to the beginning of a string, and each string continues until the 0x0800 termination control code.
 
-For example, S00's header looks like this:
+For example, S00 chunk 0's header looks like this:
 
 * 0x00 - 0x03: 001D0000 - unknown value
 * 0x04 - 0x07: 00000038 - offset of dialogue header
@@ -44,6 +44,29 @@ For example, S00's header looks like this:
 * 0x26C - 0x30c: Set of 40 32-bit unsigned integers containing string offsets
 
 The first offset, located at 0x26c, is 00000F54, the address of the first string in the file.
+
+## Ongoing research
+
+S00 chunk 0 is 18A4 bytes long. The following sections of the file are accounted for:
+
+| Index | Description |
+|-------|-------------|
+| 0x04 - 0x07    | Offset of dialogue header |
+| 0x38 - 0x3B    | Number of dialogue entries |
+| 0x3C - 0x3F    | Offset to the table of dialogue offsets |
+| 0x26C - 0x30C  | String pointer table |
+| 0xF54 - 0x18A4 | Strings |
+
+The following sections of the file are unaccounted for:
+
+| Index | Description | Value |
+|-------|-------------|-------|
+| 0x00 - 0x03   | Unknown | 001D0000 (1900544 as a 32-bit uint) |
+| 0x08 - 0x37   | Unknown | |
+| 0x40 - 0x26B  | Unknown | |
+| 0x30D - 0xF53 | Unknown | |
+
+Some of the unknown chunks will contain map data - probably the section between 30D and F53, since that's the largest chunk.
 
 ## Padding
 
