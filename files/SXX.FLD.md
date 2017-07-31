@@ -33,7 +33,7 @@ The header format is, roughly:
 
 The table of dialogue offsets is simply a set of pointers to specific offsets within the file. Each of them points to the beginning of a string, and each string continues until the 0x0800 termination control code.
 
-For example, S00's header looks like this:
+For example, S00 chunk 0's header looks like this:
 
 * 0x00 - 0x03: 001D0000 - unknown value
 * 0x04 - 0x07: 00000038 - offset of dialogue header
@@ -44,6 +44,46 @@ For example, S00's header looks like this:
 * 0x26C - 0x30c: Set of 40 32-bit unsigned integers containing string offsets
 
 The first offset, located at 0x26c, is 00000F54, the address of the first string in the file.
+
+## Ongoing research
+
+S00 chunk 0 is 18A4 bytes long. The following sections of the file are accounted for:
+
+| Index | Description |
+|-------|-------------|
+| 0x04 - 0x07    | Offset of dialogue header |
+| 0x38 - 0x3B    | Number of dialogue entries |
+| 0x3C - 0x3F    | Offset to the table of dialogue offsets |
+| 0x26C - 0x30B  | String pointer table |
+| 0xF54 - 0x18A4 | Strings |
+
+The following sections of the file are unaccounted for:
+
+| Index | Description | Value |
+|-------|-------------|-------|
+| 0x00 - 0x03   | Unknown | 001D0000 (1900544 as a 32-bit uint) |
+| 0x08 - 0x37   | Unknown | |
+| 0x40 - 0x26B  | Unknown | |
+| 0x30D - 0xF53 | Unknown | |
+
+Some of the unknown chunks will contain map data - probably the section between 30D and F53, since that's the largest chunk.
+
+0x40 - 0x43: 00000012 - ???
+0x44 - 0xD4: Pointers into the sections of map data which follow the string pointer table and precede the actual strings. These are divided into 8-byte chunks. The first four bytes contain (??? type? ID?), and the last four bytes contain an offset to the data. The data pointed to continues until the following pointer.
+
+0x44 - 0x47: 00000064 - ???
+0x48 - 0x4B: 0000030C - 52014F2E 0002012B 00010019 00202B00 02001C00 201C0001 021C0002 021C0009 02200009 00000000 40000F00 15001002
+0x4C - 0x4F: 00000000 - ???
+0x50 - 0x53: 0000033C - 02
+0x54 - 0x57: 00000001 - ???
+0x58 - 0x5B: 0000033D - 02
+0x5C - 0x5F: 00000002 - ???
+0x60 - 0x63: 0000033E - 02
+0x64 - 0x67: 00000003 - ???
+0x68 - 0x6B: 0000033F - 02
+... Continues on in the same pattern, with IDs incrementing, and all pointed-to values are 1-byte 02s
+0xCC - 0xCF: 00000010 - ???
+0xD0 - 0xD3: 0000034C - Possibly continues until the beginning of the string segment?
 
 ## Padding
 
